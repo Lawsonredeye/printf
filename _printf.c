@@ -9,7 +9,7 @@
  */
 int _printf(const char *format, ...)
 {
-	int i, j;
+	int i, j, count = 0;
 	char next_char;
 	char *string;
 	char cc;
@@ -27,6 +27,7 @@ int _printf(const char *format, ...)
 				for (j = 0; string[j] != '\0'; j++)
 				{
 					putchar(string[j]);
+					count++;
 				}
 				i++;
 			}
@@ -35,15 +36,20 @@ int _printf(const char *format, ...)
 				cc = va_arg(arg, int);
 				putchar(cc);
 				i++;
+				count++;
 			}
 			else if (next_char == '%')
 			{
 				putchar('%');
 				i++;
+				count++;
 			}
 		}
 		else
+		{
 			putchar(format[i]);
+			count++;
+		}
 	}
 	va_end(arg);
 	return (0);
