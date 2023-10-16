@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdarg.h>
+#include "main.h"
 
 /**
  * _printf - function that prints
@@ -15,6 +16,10 @@ int _printf(const char *format, ...)
 	char cc;
 	va_list arg;
 
+	if (format == NULL)
+	{
+		return (-1);
+	}
 	va_start(arg, format);
 	for (i = 0; format[i] != '\0'; i++)
 	{
@@ -24,6 +29,10 @@ int _printf(const char *format, ...)
 			if (next_char == 's')
 			{
 				string = va_arg(arg, char *);
+				if (string == NULL)
+				{
+					return (-1);
+				}
 				for (j = 0; string[j] != '\0'; j++)
 				{
 					putchar(string[j]);
