@@ -1,0 +1,47 @@
+#include <unistd.h>
+#include <string.h>
+#include <stdarg.h>
+#include <stdio.h>
+#include "main.h"
+
+/**
+ *print_dec - Custom printf function
+ *@format: the first argument
+ *Return: Number of characters printed
+ */
+int print_dec(const char *format, ...)
+{
+        int i, j, intout, counter = 0;
+        char n_char, buffer[12];
+        va_list arg;
+ if (format == NULL)
+        {
+                return (-1);
+        }
+
+        va_start(arg, format);
+        for (i = 0; format[i] != '\0'; i++)
+        {
+                if (format[i] == '%')
+                {
+                        n_char = format[i + 1];
+                        if (n_char == 'd' || n_char == 'i')
+                        {
+                                intout = va_arg(arg, int);
+                                sprintf(buffer, "%i", intout);
+                                counter += write(1, buffer, strlen(buffer));
+                                i++;
+                        }
+                }
+        }
+        for (j = 0; format[j] != '\0'; i++)
+        {
+            if (format[j] == '\' && format[j + 1] == 'n')
+            {
+                counter += write(1, "\n", 1);
+                i++;
+            }
+        }
+        va_end(arg);
+        return (counter);
+}
