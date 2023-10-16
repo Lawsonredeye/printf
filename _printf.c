@@ -3,28 +3,26 @@
 #include "main.h"
 
 /**
- * _printf - prints to the standard output
+ * _printf - function that prints
+ * to the standard output
  * @format: the first arg
  * Return: 0
  */
 int _printf(const char *format, ...)
 {
 	int i, j, count = 0;
-	char next_char, cc;
+	char next_char;
 	char *string;
+	char cc;
 	va_list arg;
 
 	if (format == NULL)
+	{
 		return (-1);
+	}
 	va_start(arg, format);
 	for (i = 0; format[i] != '\0'; i++)
 	{
-		if (format[i] == '\n')
-		{
-			putchar('\n');
-			i++;
-			count++;
-		}
 		if (format[i] == '%')
 		{
 			next_char = format[i + 1];
@@ -32,7 +30,9 @@ int _printf(const char *format, ...)
 			{
 				string = va_arg(arg, char *);
 				if (string == NULL)
+				{
 					return (-1);
+				}
 				for (j = 0; string[j] != '\0'; j++)
 				{
 					putchar(string[j]);
@@ -63,4 +63,3 @@ int _printf(const char *format, ...)
 	va_end(arg);
 	return (count);
 }
-
