@@ -1,19 +1,19 @@
 #include <stdio.h>
+#include <unistd.h>
 #include <stdarg.h>
 #include "main.h"
+#include <string.h>
 
 /**
- * _printf - function that prints
- * to the standard output
+ * _printf - prints to the standard output
  * @format: the first arg
  * Return: 0
  */
 int _printf(const char *format, ...)
 {
-	int i, j, count = 0;
-	char next_char;
+	int i, j, intout, count = 0;
+	char next_char, cc, buffer[12];
 	char *string;
-	char cc;
 	va_list arg;
 
 	if (format == NULL)
@@ -30,9 +30,7 @@ int _printf(const char *format, ...)
 			{
 				string = va_arg(arg, char *);
 				if (string == NULL)
-				{
 					return (-1);
-				}
 				for (j = 0; string[j] != '\0'; j++)
 				{
 					putchar(string[j]);
@@ -53,11 +51,28 @@ int _printf(const char *format, ...)
 				i++;
 				count++;
 			}
+			else if (next_char == 'd' || next_char == 'i')
+			{
+				intout = va_arg(arg, int);
+				sprintf(buffer, "%d", intout);
+				count += write(1, buffer, strlen(buffer));
+				i++;
+			}
 		}
 		else
 		{
 			putchar(format[i]);
 			count++;
+		}
+		if (format[i] == '\n')
+		{
+			next_char = format[i + 1];
+			if (next_char == 'n')
+			{
+				putchar('\n');
+				i++;
+				count++;
+			}
 		}
 	}
 	va_end(arg);
