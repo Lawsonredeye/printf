@@ -17,7 +17,7 @@ int _printf(const char *format, ...)
         char *string;
         va_list arg;
 
-        if (*format == NULL)
+        if (format == NULL)
         {
             return (-1);
         }
