@@ -17,7 +17,7 @@ int _printf(const char *format, ...)
 	char *string;
 	va_list arg;
 
-	if (format == NULL)
+	if (*format == '\0' || (format[0] == '%' && format[1] == '\0'))
 	{
 		return (-1);
 	}
