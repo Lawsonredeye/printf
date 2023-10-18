@@ -36,7 +36,7 @@ int _printf(const char *format, ...)
 					return (-1);
 				for (j = 0; string[j] != '\0'; j++)
 				{
-					putchar(string[j]);
+					_putchar(string[j]);
 					count++;
 				}
 				i++;
