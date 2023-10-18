@@ -3,6 +3,7 @@
 #include <stdarg.h>
 #include "main.h"
 #include <string.h>
+#include <stdbool.h>
 
 /**
  * _printf - prints to the standard output
@@ -15,6 +16,7 @@ int _printf(const char *format, ...)
 	unsigned int my_integer;
 	char next_char, cc, buffer[12];
 	char *string;
+	bool isUppercase;
 	va_list arg;
 
 	if (*format == '\0' || (format[0] == '%' && format[1] == '\0'))
@@ -45,6 +47,13 @@ int _printf(const char *format, ...)
 				putchar(cc);
 				i++;
 				count++;
+			}
+			else if (format[i + 1] == 'X' || format[i + 1] == 'x')
+			{
+				my_integer = va_arg(arg, unsigned int);
+				isUppercase = (format[i + 1] == 'X');
+				hexadec(my_integer, &count, isUppercase);
+				i++;
 			}
 			else if (next_char == '%')
 			{
